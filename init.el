@@ -143,8 +143,6 @@
 
 (global-set-key (kbd "<f12>")  'save-some-buffers)
 
-(global-set-key "\C-ca" 'org-agenda)
-
 (blink-cursor-mode 0)
 
 (global-set-key "\C-l" `goto-line)
@@ -169,10 +167,6 @@
  '(column-number-mode t)
  '(frame-background-mode (quote light))
  '(inhibit-startup-screen t)
- '(org-agenda-files
-   (quote
-    ("~/Documents/Personal.org" "~/Documents/Consulting.org" "~/Documents/Work.org" "~/Documents/Conferences.org" "~/Documents/Chores.org" "~/Documents/Bills.org" "~/Documents/paper1/Work.org" "~/Documents/Nishant.org" "~/Documents/Workout.org" "~/Documents/paper1/TODO.org")))
- '(org-agenda-span (quote fortnight))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t))))
  '(org-log-done (quote time))
  '(org-log-into-drawer t)
