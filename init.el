@@ -85,8 +85,8 @@
 (require 'tramp)
 (require 'org)
 (require 'color-theme)
-(color-theme-initialize)
-(color-theme-snowish)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized/")
+(load-theme 'solarized t)
 
 (menu-bar-mode 1)
 (tool-bar-mode 0)
@@ -167,6 +167,7 @@
  ;; If there is more than one, they won't work right.
  '(blink-cursor-mode nil)
  '(column-number-mode t)
+ '(frame-background-mode (quote light))
  '(inhibit-startup-screen t)
  '(org-agenda-files
    (quote
