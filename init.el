@@ -133,6 +133,7 @@
 
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 (speedbar-add-supported-extension ".hs")
+(custom-set-variables '(haskell-stylish-on-save t))
 
 ;;org
 
