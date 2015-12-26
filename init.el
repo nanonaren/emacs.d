@@ -141,6 +141,7 @@
 (add-hook 'org-mode-hook 'auto-fill-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'text-mode-hook 'auto-fill-mode)
+(custom-set-variables '(org-format-latex-options (quote (:foreground default :background default :scale 1.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))))
 
 (global-set-key (kbd "<f12>")  'save-some-buffers)
 
