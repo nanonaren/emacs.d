@@ -7,7 +7,12 @@
 (require 'haskell-mode-autoloads)
 (add-to-list 'Info-default-directory-list "/usr/share/emacs/site-lisp/haskell-mode/")
 
-(require 'lusty-explorer)
+;; Easier file and buffer switching using ido-mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
+(setq ido-ignore-extenstions t)
+(setq completion-ignored-extensions '(".mp3" ".hi" ".beam"))
 
 ;;ess
 (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
@@ -40,9 +45,6 @@
 
 ;;spelling
 (add-hook 'LaTeX-mode-hook (lambda () (flyspell-mode 1)))
-
-(global-set-key (kbd "C-x C-f") `lusty-file-explorer)
-(global-set-key (kbd "C-x b") `lusty-buffer-explorer)
 
 ;;commenting
 (global-set-key (kbd "C-x C-k") `comment-or-uncomment-region)
@@ -133,7 +135,35 @@
 
 (add-hook 'haskell-mode-hook 'haskell-indentation-mode)
 (speedbar-add-supported-extension ".hs")
-(custom-set-variables '(haskell-stylish-on-save t))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(blink-cursor-mode nil)
+ '(column-number-mode t)
+ '(frame-background-mode (quote light))
+ '(haskell-stylish-on-save t)
+ '(haskell-tags-on-save t)
+ '(inhibit-startup-screen t)
+ '(org-agenda-files (quote ("~/Desktop/TODO.org")))
+ '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t))))
+ '(org-format-latex-options
+   (quote
+    (:foreground default :background default :scale 1.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers
+                 ("begin" "$1" "$" "$$" "\\(" "\\["))))
+ '(org-log-done (quote time))
+ '(org-log-into-drawer t)
+ '(org-modules
+   (quote
+    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m)))
+ '(package-archives
+   (quote
+    (("melpa-stable" . "http://stable.melpa.org/packages/"))))
+ '(tool-bar-mode nil))
+
+(require 'haskell-interactive-mode)
+(define-key haskell-mode-map (kbd "M-.") 'haskell-mode-tag-find)
 
 ;;org
 
@@ -141,7 +171,7 @@
 (add-hook 'org-mode-hook 'auto-fill-mode)
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'text-mode-hook 'auto-fill-mode)
-(custom-set-variables '(org-format-latex-options (quote (:foreground default :background default :scale 1.5 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))))
+
 
 (global-set-key (kbd "<f12>")  'save-some-buffers)
 
@@ -160,25 +190,7 @@
 
 (setq-default ispell-program-name "aspell")
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
- '(column-number-mode t)
- '(frame-background-mode (quote light))
- '(inhibit-startup-screen t)
- '(org-babel-load-languages (quote ((emacs-lisp . t) (R . t))))
- '(org-log-done (quote time))
- '(org-log-into-drawer t)
- '(org-modules
-   (quote
-    (org-bbdb org-bibtex org-docview org-gnus org-habit org-info org-irc org-mhe org-rmail org-w3m)))
- '(package-archives
-   (quote
-    (("melpa-stable" . "http://stable.melpa.org/packages/"))))
- '(tool-bar-mode nil))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
