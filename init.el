@@ -1,18 +1,78 @@
 (require 'package)
 
+;; easy keys to split window. Key based on ErgoEmacs keybinding
+(global-set-key (kbd "M-3") 'delete-other-windows) ; expand current pane
+(global-set-key (kbd "M-4") 'split-window-below) ; split pane top/bottom
+(global-set-key (kbd "M-2") 'delete-window) ; close current pane
+(global-set-key (kbd "M-s") 'other-window) ; cursor to other pane
+
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/haskell-mode/")
 (load "editorconfig")
 
+;; [[http://emacsredux.com/blog/2013/05/22/smarter-navigation-to-the-beginning-of-a-line/][Smarter Navigation to the Beginning of a Line]]
+(defun smarter-move-beginning-of-line (arg)
+  "Move point back to indentation of beginning of line.
+
+Move point to the first non-whitespace character on this line.
+If point is already there, move to the beginning of the line.
+Effectively toggle between the first non-whitespace character and
+the beginning of the line.
+
+If ARG is not nil or 1, move forward ARG - 1 lines first.  If
+point reaches the beginning or end of the buffer, stop there."
+  (interactive "^p")
+  (setq arg (or arg 1))
+
+  ;; Move lines first
+  (when (/= arg 1)
+    (let ((line-move-visual nil))
+      (forward-line (1- arg))))
+
+  (let ((orig-point (point)))
+    (back-to-indentation)
+    (when (= orig-point (point))
+      (move-beginning-of-line 1))))
+
+;; remap C-a to `smarter-move-beginning-of-line'
+(global-set-key [remap move-beginning-of-line]
+                'smarter-move-beginning-of-line)
+
+
+;; haskell
 (require 'haskell-mode-autoloads)
 (add-to-list 'Info-default-directory-list "/usr/share/emacs/site-lisp/haskell-mode/")
+(add-hook 'haskell-mode-hook 'haskell-decl-scan-mode)
+(require 'haskell-interactive-mode)
+
+(defun jump-to-tag ()
+   "jump-to-tag"
+   (split-window-below)
+   (other-window)
+;;   (haskell-mode-tag-find)
+;;   (other-window)
+  )
+
+(define-key haskell-mode-map (kbd "M-.") 'jump-to-tag)
+
+;; Recent files
+(require 'recentf)
+(global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+(recentf-mode t)
+(setq recentf-max-saved-items 50)
+(defun ido-recentf-open ()
+  "Use `ido-completing-read' to \\[find-file] a recent file"
+  (interactive)
+  (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+      (message "Opening file...")
+    (message "Aborting")))
 
 ;; Easier file and buffer switching using ido-mode
 (setq ido-enable-flex-matching t)
 (setq ido-everywhere t)
 (ido-mode 1)
 (setq ido-ignore-extenstions t)
-(setq completion-ignored-extensions '(".mp3" ".hi" ".beam"))
+(setq completion-ignored-extensions '(".mp3" ".hi" ".beam" "~"))
 
 ;;ess
 (setq load-path (cons "/usr/share/emacs/site-lisp/ess" load-path))
@@ -188,9 +248,11 @@
 (setq-default ispell-program-name "aspell")
 
 
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 110 :width normal)))))
+;; (custom-set-faces
+;;  ;; custom-set-faces was added by Custom.
+;;  ;; If you edit it by hand, you could mess it up, so be careful.
+;;  ;; Your init file should contain only one such instance.
+;;  ;; If there is more than one, they won't work right.
+;;  '(default ((t (:family "Inconsolata" :foundry "unknown" :slant normal :weight normal :height 110 :width normal)))))
+
+(set-default-font "Liberation Mono-11")
