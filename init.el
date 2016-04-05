@@ -125,7 +125,7 @@
 (setq c-default-style "linux" c-basic-offset 4)
 
 ;;erlang
-(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.8.1/emacs"
+(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.8.3/emacs"
     load-path))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
