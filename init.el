@@ -162,9 +162,6 @@
     (("melpa-stable" . "http://stable.melpa.org/packages/"))))
  '(tool-bar-mode nil))
 
-(require 'haskell-interactive-mode)
-(define-key haskell-mode-map (kbd "M-.") 'haskell-mode-tag-find)
-
 ;;org
 
 (add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
