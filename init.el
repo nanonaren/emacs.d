@@ -88,7 +88,7 @@
 (require 'org)
 (require 'color-theme)
 (add-to-list 'custom-theme-load-path "~/.emacs.d/emacs-color-theme-solarized/")
-(load-theme 'solarized t)
+(load-theme 'tango-dark t)
 
 (menu-bar-mode 1)
 (tool-bar-mode 0)
